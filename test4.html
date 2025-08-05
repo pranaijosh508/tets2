@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Responsive Test App</title>
+
+  <!-- ✅ Bootstrap 5.3 CSS CDN -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet"/>
+
+  <!-- ✅ Font Awesome CDN -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
+
+  <style>
+    body {
+      background-color: #f7f7f7;
+    }
+
+    .logo {
+      height: 60px;
+    }
+
+    .admin-icon {
+      width: 40px;
+      height: 40px;
+      background-color: #0D6EFD;
+      color: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: bold;
+      font-size: 18px;
+    }
+
+    .question-item {
+      padding: 12px;
+      border-bottom: 1px solid #eee;
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+    }
+
+    .question-text {
+      color: #0D6EFD;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 500px;
+    }
+
+    .show-full .question-text {
+      white-space: normal;
+      overflow: visible;
+    }
+
+    .answer {
+      display: none;
+      padding-top: 5px;
+      color: #333;
+    }
+
+    .show-full .answer {
+      display: block;
+    }
+    .sidebar a.red { color: red; }
+    .sidebar a.blue { color: #0D6EFD; }
+
+    .add-question-btn {
+      width: 100%;
+      padding: 15px;
+      background-color: #0D6EFD;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 18px;
+      font-weight: bold;
+      margin-bottom: 20px;
+    }
+
+    
+
+    
+    .sidebar .section-links a {
+      display: block;
+      margin: 4px 0;
+      color: #333;
+      text-decoration: none;
+      }
+    .sidebar a.red { color: red; }
+    .sidebar a.blue { color: #0D6EFD; }
+
+    .full-view-btn,
+    .view-btn,
+    .load-more-btn {
+      padding: 8px 20px;
+      border-radius: 20px;
+      border: 1px solid #0D6EFD;
+      background-color: white;
+      color: #0D6EFD;
+      font-weight: bold;
+    }
+
+    .full-view-btn:hover,
+    .view-btn:hover,
+    .load-more-btn:hover {
+      background-color: #0D6EFD;
+      color: white;
+    }
+  </style>
+</head>
+<body>
+
+<!-- ✅ Navbar -->
+<nav class="navbar navbar-expand-lg bg-white shadow-sm px-3">
+  <div class="container-fluid">
+    <div class="d-flex align-items-center gap-3">
+      <button class="btn btn-outline-secondary d-lg-none" data-bs-toggle="offcanvas" data-bs-target="#sidebar">
+        <i class="fas fa-bars"></i>
+      </button>
+      <img src="https://fiit-student-task.vercel.app/images/educationimg.png" class="logo" alt="Logo">
+    </div>
+    <div class="d-none d-lg-flex gap-4 ms-4">
+      <a href="#" class="nav-link text-dark"><i class="fas fa-tachometer-alt"></i> Dashboard</a>
+      <a href="#" class="nav-link text-primary"><i class="fas fa-vial"></i> Tests</a>
+      <a href="#" class="nav-link text-dark"><i class="fas fa-question-circle"></i> Question Bank</a>
+      <a href="#" class="nav-link text-dark"><i class="fas fa-chalkboard-teacher"></i> Classes</a>
+      <a href="#" class="nav-link text-dark"><i class="fas fa-user-tie"></i> Teachers</a>
+    </div>
+    <div class="d-flex align-items-center gap-2 ms-auto">
+      <span class="fw-semibold">Admin</span>
+      <div class="admin-icon">A</div>
+    </div>
+  </div>
+</nav>
+
+<!-- ✅ Layout with Bootstrap Grid -->
+<div class="container-fluid">
+  <div class="row">
+    
+    <!-- ✅ Sidebar (Offcanvas on mobile) -->
+    <div class="col-lg-3 bg-white p-4 border-end offcanvas-lg offcanvas-start" tabindex="-1" id="sidebar">
+      <button class="add-question-btn">+ Add Question</button>
+
+      <h6>SNAP SHOT</h6>
+
+      <h6>SECTIONS</h6>
+      <div class="section-links">
+        <h6>+ New Section</h6>
+        <h6 class="red">🔴 Section 1</h6>
+        <h6 class="blue">🔵 Section 2</h6>
+        <h6>Uncategorized (5)</h6>
+      </div>
+
+      <h6>TEST INFORMATION</h6>
+      <p>Marks: (16)</p>
+      <p>No. of Q: (16)</p>
+      <p>Neg: (0)</p>
+      <p>Duration: (10)</p>
+    </div>
+
+    <!-- ✅ Main Content -->
+    <div class="col-lg-9 p-4">
+      <div class="d-flex justify-content-between align-items-center flex-wrap mb-3">
+        <h2 class="mb-2">Test 1 Questions</h2>
+        <div class="btn-group mb-2">
+          <button class="view-btn" id="viewBtn">View</button>
+          <button class="full-view-btn" id="fullViewBtn">Full View</button>
+        </div>
+      </div>
+
+      <input type="text" class="form-control mb-3" placeholder="Search questions...">
+
+      <div class="bg-white p-3 rounded shadow-sm" id="questionBox">
+        <!-- Questions will appear here -->
+      </div>
+
+      <div class="text-center mt-3">
+        <button class="load-more-btn" id="loadMoreBtn">Load More</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ✅ Bootstrap 5.3 JS CDN -->
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+<script>
+  const questions = [
+    { q: "What is the use of the primary semiconductor in mobile devices?", a: "It helps in signal processing, computation, and power management." },
+    { q: "What is React and why is it used?", a: "React is a JavaScript library used to build UI components." },
+    { q: "What is the capital of France?", a: "The capital is Paris." },
+    { q: "Explain Newton's second law of motion.", a: "Force = Mass × Acceleration. It defines the relation between them." },
+    { q: "What is HTML used for?", a: "HTML structures content on the web." },
+    { q: "Difference between RAM and ROM?", a: "RAM is volatile memory, ROM is non-volatile and stores firmware." },
+    { q: "What is 10 + 20?", a: "30" },
+    { q: "What is the role of GPU in a computer?", a: "To handle graphic-intensive tasks like rendering and video processing." },
+    { q: "Define Ohm's Law.", a: "V = IR, where V is voltage, I is current, R is resistance." },
+    { q: "What is a compiler?", a: "A program that converts high-level code into machine code." },
+    { q: "Explain inheritance in OOP.", a: "Inheritance allows classes to inherit properties from other classes." },
+    { q: "What is the use of CSS?", a: "CSS styles the HTML elements." },
+    { q: "What is an API?", a: "A way for programs to communicate with each other." },
+    { q: "State the law of conservation of energy.", a: "Energy cannot be created or destroyed." },
+    { q: "What is a database?", a: "An organized collection of data." },
+    { q: "What is a function in programming?", a: "A reusable block of code that performs a specific task." }
+  ];
+
+  let fullView = false;
+  let visibleCount = 10;
+
+  const questionBox = document.getElementById("questionBox");
+  const fullViewBtn = document.getElementById("fullViewBtn");
+  const viewBtn = document.getElementById("viewBtn");
+  const loadMoreBtn = document.getElementById("loadMoreBtn");
+
+  function renderQuestions() {
+    questionBox.innerHTML = "";
+    for (let i = 0; i < visibleCount && i < questions.length; i++) {
+      const item = questions[i];
+      const div = document.createElement("div");
+      div.className = `question-item ${fullView ? "show-full" : ""}`;
+      div.innerHTML = `
+        <input type="checkbox" class="form-check-input mt-1">
+        <div>
+          <div class="question-text">${fullView ? item.q : item.q.slice(0, 30) + "..."}</div>
+          <div class="answer">${item.a}</div>
+        </div>
+      `;
+      questionBox.appendChild(div);
+    }
+    loadMoreBtn.style.display = visibleCount >= questions.length ? "none" : "inline-block";
+  }
+
+  fullViewBtn.addEventListener("click", () => {
+    fullView = true;
+    renderQuestions();
+  });
+
+  viewBtn.addEventListener("click", () => {
+    fullView = false;
+    visibleCount = 10;
+    renderQuestions();
+  });
+
+  loadMoreBtn.addEventListener("click", () => {
+    visibleCount = questions.length;
+    renderQuestions();
+  });
+
+  renderQuestions();
+</script>
+</body>
+</html>
